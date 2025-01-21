@@ -1,10 +1,17 @@
 import argostranslate.package
 import argostranslate.translate
 import speech_recognition as sr
-import os
 import wave
+import whisper
+import os
 
 file_index = 0
+
+model = whisper.load_model("small")
+
+
+def main():
+    transcribed_text = audio_from_mic()
 
 
 def translate(text: str, source_lang: str, output_lang: str) -> str:
@@ -27,7 +34,7 @@ def translate(text: str, source_lang: str, output_lang: str) -> str:
     return translatedText
 
 
-def audio_from_mic():
+def audio_from_mic() -> str:
     mic_index = 4  # adjust this if needed (check mic index with sr.Microphone.list_microphone_names())
     r = sr.Recognizer()
     with sr.Microphone(device_index=mic_index) as source:
@@ -39,6 +46,7 @@ def audio_from_mic():
         # save the audio data to a WAV file
         global file_index
         filename = f"file_{file_index}.wav"
+
         wav_data = audio.get_wav_data()
         with wave.open(filename, "wb") as wav_file:
             wav_file.setnchannels(1)  # mono this shit
@@ -49,12 +57,17 @@ def audio_from_mic():
         print(f"Audio successfully written to {filename}")
         file_index += 1
 
+        transcribe_wav(filename)
+
+        os.remove(filename)
+
     except Exception as e:
         print(f"Error while writing audio: {e}")
 
 
-def main():
-    audio_from_mic()
+def transcribe_wav(filename: str) -> str:
+    result = model.transcribe(filename)
+    return result["text"]
 
 
 if __name__ == "__main__":
