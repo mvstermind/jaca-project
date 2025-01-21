@@ -1,6 +1,10 @@
 import argostranslate.package
 import argostranslate.translate
 import speech_recognition as sr
+import os
+import wave
+
+file_index = 0
 
 
 def translate(text: str, source_lang: str, output_lang: str) -> str:
@@ -24,23 +28,29 @@ def translate(text: str, source_lang: str, output_lang: str) -> str:
 
 
 def audio_from_mic():
-    # 4 is my default mic
-    # use this to get what mic i have to use
-    # print(sr.Microphone.list_microphone_names())
-    mic_index = 4
+    mic_index = 4  # adjust this if needed (check mic index with sr.Microphone.list_microphone_names())
     r = sr.Recognizer()
-    print("Available microphones:", sr.Microphone.list_microphone_names())
     with sr.Microphone(device_index=mic_index) as source:
         r.adjust_for_ambient_noise(source, duration=1)
         print("Say something!")
         audio = r.listen(source)
 
     try:
-        print("Sphinx thinks you said:", r.recognize_sphinx(audio))
-    except sr.UnknownValueError:
-        print("Sphinx could not understand the audio.")
-    except sr.RequestError as e:
-        print(f"Sphinx error: {e}")
+        # save the audio data to a WAV file
+        global file_index
+        filename = f"file_{file_index}.wav"
+        wav_data = audio.get_wav_data()
+        with wave.open(filename, "wb") as wav_file:
+            wav_file.setnchannels(1)  # mono this shit
+            wav_file.setsampwidth(2)
+            wav_file.setframerate(44100)
+            wav_file.writeframes(wav_data)
+
+        print(f"Audio successfully written to {filename}")
+        file_index += 1
+
+    except Exception as e:
+        print(f"Error while writing audio: {e}")
 
 
 def main():
