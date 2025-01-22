@@ -10,16 +10,13 @@ import sys
 
 
 def main():
-    transcribed_text = ""
-    if sys.argv[1] == "wokal":
-        transcribed_text = transcription.audio_from_mic()
+    # transcribed_text = transcription.audio_from_mic()
+    transcribed_text = sys.argv[2:]
+    words = ""
+    for text in transcribed_text:
+        words += text
 
-    elif sys.argv[1] == "text":
-        transcribed_text = sys.argv[1:]
-
-    output = transcription.translate(
-        transcribed_text, source_lang="pl", output_lang="en"
-    )
+    output = transcription.translate(words, source_lang="pl", output_lang="en")
     # tell me what i said
     print(f"{output}\n")
 

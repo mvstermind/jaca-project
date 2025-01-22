@@ -5,7 +5,7 @@ import os
 import whisper
 import speech_recognition as sr
 
-model = whisper.load_model("small")
+model = whisper.load_model("base")
 
 
 def translate(text: str, source_lang: str, output_lang: str) -> str:
@@ -29,7 +29,7 @@ def translate(text: str, source_lang: str, output_lang: str) -> str:
 
 
 def audio_from_mic() -> str:
-    mic_index = 4  # adjust this if needed (check mic index with sr.Microphone.list_microphone_names())
+    mic_index = 3  # adjust this if needed (check mic index with sr.Microphone.list_microphone_names())
     r = sr.Recognizer()
     with sr.Microphone(device_index=mic_index) as source:
         r.adjust_for_ambient_noise(source, duration=1)
