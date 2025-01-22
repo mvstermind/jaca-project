@@ -23,7 +23,7 @@ def main():
     # tell me what i said
     print(f"{output}\n")
 
-    jaca = Jaca(output=output)
+    jaca = Jaca(input=output)
     resp = jaca.response()
     if resp is not None:
         jaca_pl = transcription.translate(resp, source_lang="en", output_lang="pl")
