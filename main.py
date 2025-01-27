@@ -1,5 +1,6 @@
 import microphone
 import ai
+import tts
 import translate
 from datetime import datetime
 import sys
@@ -28,6 +29,8 @@ def main():
 
     print("jaca muwi: ")
     print(back_to_pl)
+
+    tts.convert_text_to_target_voice(back_to_pl)
 
     time_diff = datetime.now() - curr_date
     print("A zajelo to cale: ", time_diff.total_seconds())

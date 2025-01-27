@@ -8,11 +8,9 @@ import argostranslate.translate
 os.environ["OMP_NUM_THREADS"] = "16"
 
 
-# pl to en
+# initalize translator pl to en
 translator = ctranslate2.Translator("opus-mt-pl-en", device="cpu", compute_type="int8")
 tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-pl-en")
-
-# en to pl
 
 
 # disable gradients during inference to save memory
