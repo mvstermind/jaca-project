@@ -176,3 +176,4 @@ cython_debug/
 opus-mt-pl-en/
 model/
 weights/
+tts_voice/
