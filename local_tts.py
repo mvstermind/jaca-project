@@ -4,6 +4,7 @@ from pydub.playback import play
 import torch
 import os
 
+
 device = "cuda" if torch.cuda.is_available() else "cpu"
 tts = TTS(model_name="tts_models/pl/mai_female/vits", progress_bar=False).to(device)
 

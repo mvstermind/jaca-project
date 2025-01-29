@@ -178,3 +178,4 @@ model/
 weights/
 tts_voice/
 discord-env/
+tinyllama/
