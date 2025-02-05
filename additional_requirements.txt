@@ -1,6 +1,0 @@
-python3.11 is required
-
-polish translation model from -> https://alphacephei.com/vosk/models 
-any input vocal that will be used for tts in -> tts_voice/*.wav
-opus-mt-pl-en model for translations
-tinyllama.gguf file -> https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/blob/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf
